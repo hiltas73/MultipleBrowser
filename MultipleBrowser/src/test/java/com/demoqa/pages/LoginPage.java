@@ -9,7 +9,7 @@ public class LoginPage {
     public LoginPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
-    @FindBy(xpath = "//div[@class='element-list collapse show']//li[@id='item-0']")
+    @FindBy(xpath = "//li[*='Login']")
     public WebElement loginSubmodule;
     @FindBy(xpath = "//input[@id='userName']")
     public WebElement inputUsername;

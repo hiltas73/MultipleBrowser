@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import java.time.Duration;
 
@@ -30,18 +31,18 @@ public class Driver {
      */
     public static WebDriver getDriver() {
 
-        if(driverPool.get() == null){
+        if (driverPool.get() == null) {
 
 
             /*
             We read our browserType from configuration.properties.
             This way, we can control which browser is opened from outside our code, from configuration.properties.
              */
-            String browserType = System.getProperty("browser") != null ?  System.getProperty("browser") :
+            String browserType = System.getProperty("browser") != null ? System.getProperty("browser") :
                     ConfigurationReader.getProperty("browser");
 
 
-            switch (browserType.toLowerCase()){
+            switch (browserType.toLowerCase()) {
                 case "chrome":
                     //WebDriverManager.chromedriver().setup();
                     driverPool.set(new ChromeDriver());
@@ -51,6 +52,16 @@ public class Driver {
                 case "firefox":
                     //WebDriverManager.firefoxdriver().setup();
                     driverPool.set(new FirefoxDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                    break;
+                case "safari":
+                    driverPool.set(new SafariDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                    break;
+                case "edge":
+                    driverPool.set(new EdgeDriver());
                     driverPool.get().manage().window().maximize();
                     driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                     break;
@@ -73,8 +84,8 @@ public class Driver {
     /*
     Create a new Driver.closeDriver(); it will use .quit() method to quit browsers, and then set the driver value back to null.
      */
-    public static void closeDriver(){
-        if (driverPool.get()!=null){
+    public static void closeDriver() {
+        if (driverPool.get() != null) {
             /*
             This line will terminate the currently existing driver completely. It will not exist going forward.
              */

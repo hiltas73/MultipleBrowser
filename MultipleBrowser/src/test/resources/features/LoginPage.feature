@@ -1,6 +1,6 @@
 Feature: User can Login
 
-@wip
+  @wip
   Scenario Outline: Verify that user can not Login with <browser>
     Given user open the "<browser>" browser
     When user goes to Book Store Page Without Login
@@ -10,7 +10,8 @@ Feature: User can Login
     And user click login Button
     Then user should not land on Dashboard
     Examples:
-      | browser  |
-      | Chrome   |
-      | Firefox  |
-    #  | Edge     |
+      | browser |
+      | Chrome  |
+      | Firefox |
+      | Safari  |
+      | Edge    |
